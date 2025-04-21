@@ -13,7 +13,23 @@ const init = async () => {
     });
 
     server.route(productRoutes);
-
+    server.route([
+        {
+          method: 'GET',
+          path: '/',
+          handler: () => {
+            return { message: 'Hello from Hapi TypeScript on Vercel!' };
+          },
+        },
+        {
+          method: 'GET',
+          path: '/hello/{name}',
+          handler: (request) => {
+            const name = request.params['name'];
+            return { message: `Hello, ${name}` };
+          },
+        },
+      ]);
     await server.start();
     console.log('Server running on %s', server.info.uri);
 };
