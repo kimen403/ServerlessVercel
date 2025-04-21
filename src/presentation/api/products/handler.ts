@@ -4,7 +4,7 @@ import { CreateProductUseCase } from '../../../application/use-cases/products/cr
 import { GetProductsUseCase } from '../../../application/use-cases/products/get-products';
 import { UpdateProductUseCase } from '../../../application/use-cases/products/update-product';
 import { DeleteProductUseCase } from '../../../application/use-cases/products/delete-product';
-import { NotFoundError, ValidationError, InvariantError, BaseError } from '../../../common/errors';
+import { NotFoundError, ValidationError, BaseError } from '../../../common/errors';
 
 const productRepository = PrismaProductRepository.getInstance();
 const createProductUseCase = new CreateProductUseCase(productRepository);
@@ -26,7 +26,7 @@ export const ProductHandlers = {
         }
     },
 
-    getAllProducts: async (request: Request, h: ResponseToolkit) => {
+    getAllProducts: async (_request: Request, h: ResponseToolkit) => {
         try {
             const products = await getProductsUseCase.executeGetAll();
             return h.response(products).code(200);
